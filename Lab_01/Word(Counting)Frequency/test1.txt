@@ -1,0 +1,2 @@
+Here is \t some text just to \n check if my program is working correctly (here should be 18 words)
+Another text

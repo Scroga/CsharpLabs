@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Huffman1": {
+      "commandName": "Project",
+      "commandLineArgs": "huffman-data/simple2.in"
+    }
+  }
+}

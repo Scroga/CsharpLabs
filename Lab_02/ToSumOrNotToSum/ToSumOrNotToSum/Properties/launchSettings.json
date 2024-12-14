@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ToSumOrNotToSum": {
+      "commandName": "Project",
+      "commandLineArgs": "ZeleninaShort.txt output.txt trzba"
+    }
+  }
+}

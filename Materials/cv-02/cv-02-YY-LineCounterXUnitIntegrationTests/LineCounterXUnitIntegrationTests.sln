@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineCounter", "LineCounter\LineCounter.csproj", "{A6BB30B9-C474-4651-8911-81576C259053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineCounter_IntegrationTests", "LineCounter_IntegrationTests\LineCounter_IntegrationTests.csproj", "{C55C7473-F64F-4E8E-BAEC-95747375ABB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6BB30B9-C474-4651-8911-81576C259053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6BB30B9-C474-4651-8911-81576C259053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6BB30B9-C474-4651-8911-81576C259053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6BB30B9-C474-4651-8911-81576C259053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55C7473-F64F-4E8E-BAEC-95747375ABB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55C7473-F64F-4E8E-BAEC-95747375ABB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55C7473-F64F-4E8E-BAEC-95747375ABB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55C7473-F64F-4E8E-BAEC-95747375ABB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD9CAC72-FE3F-445D-AB22-AA9A747E800C}
+	EndGlobalSection
+EndGlobal

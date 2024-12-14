@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TextJustification": {
+      "commandName": "Project",
+      "commandLineArgs": "simpleText01.txt output.txt 40 s"
+    }
+  }
+}

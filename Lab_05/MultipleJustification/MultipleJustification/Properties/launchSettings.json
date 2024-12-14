@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MultipleJustification": {
+      "commandName": "Project",
+      "commandLineArgs": "--highlight-spaces LoremIpsum.txt xx.txt xx.txt LoremIpsum.txt output.txt 40"
+    }
+  }
+}
