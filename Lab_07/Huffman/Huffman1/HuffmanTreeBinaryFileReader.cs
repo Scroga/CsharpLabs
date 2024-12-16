@@ -17,9 +17,9 @@ public class HuffmanTreeBinaryFileReader : IHuffmanTreeReader
         _reader = reader;
     }
 
-    public Dictionary<int,int> GetSymbolsDict()
+    public Dictionary<byte,long> GetSymbolsDict()
     {
-        var dict = new Dictionary<int, int>();
+        var dict = new Dictionary<byte, long>();
         const int bufferSize = 1024;
         byte[] buffer = new byte[bufferSize];
 

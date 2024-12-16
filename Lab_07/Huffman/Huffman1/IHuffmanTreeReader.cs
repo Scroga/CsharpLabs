@@ -8,5 +8,5 @@ namespace Huffman1;
 
 public interface IHuffmanTreeReader
 {
-    Dictionary<int, int> GetSymbolsDict();
+    Dictionary<byte, long> GetSymbolsDict();
 }

@@ -28,7 +28,7 @@ namespace Huffman1
         {
             if (root == null) return;
 
-            if (root.Symbol == -1)
+            if (!root.IsLeaf())
             {
                 buffer.Add($"{root.Weight}");
                 WritePrefixRec(root.Left, buffer);

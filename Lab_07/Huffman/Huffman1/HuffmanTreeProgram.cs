@@ -13,13 +13,15 @@ public class HuffmanTreeProgram : IProgramCore
         {
             state.CheckArgumentCount(args, 1);
             state.OpenInputFile(args[0]);
+            state.OpenOutputFile(args[0]);
 
             var reader = new HuffmanTreeBinaryFileReader(state.InputReader!);
             var writer = new HuffmanTreePrefixWriter(Console.Out);
+            // writer = new HuffmanTreeBinWriter(state.OutputWriter!);
 
             BuildHuffmanTree(reader, writer);
         }
-        finally
+        finally 
         {
             state.Dispose();
         }
@@ -32,22 +34,10 @@ public class HuffmanTreeProgram : IProgramCore
         writer.WritePrefixTree(root);
     }
 
-    static HuffmanTreeNode HuffmanCoding(Dictionary<int, int> dict)
+    static HuffmanTreeNode HuffmanCoding(Dictionary<byte, long> dict)
     {
-        var priorityQueue = new SortedSet<HuffmanTreeNode>(
-            Comparer<HuffmanTreeNode>.Create((a, b) =>
-            {
-                if (a.Weight != b.Weight) return a.Weight.CompareTo(b.Weight);
-
-                bool isLeafA = a.Symbol != -1;
-                bool isLeafB = b.Symbol != -1;
-
-                if (isLeafA && isLeafB) return a.Symbol.CompareTo(b.Symbol);
-                if (isLeafA != isLeafB) return isLeafA ? -1 : 1;
-
-                return a.CreationTime.CompareTo(b.CreationTime);
-            })
-        );
+        var priorityQueue = new SortedSet<HuffmanTreeNode>
+            (Comparer<HuffmanTreeNode>.Create((a, b) => { return a.CompareTo(b); }));
 
         foreach (var item in dict)
         {

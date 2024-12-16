@@ -33,6 +33,20 @@ namespace Huffman1
             }
         }
 
+        public void OpenOutputFile(string inputFileName)
+        {
+            string outputFileName = ""; // TODO:
+
+            try
+            {
+                // TODO:
+            }
+            catch
+            {
+                throw new FileAccesErrorApplicationException();
+            }
+        }
+
         public void Dispose()
         { 
             InputReader?.Dispose();

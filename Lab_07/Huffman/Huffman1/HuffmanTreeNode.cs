@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Huffman1;
 
-public record class HuffmanTreeNode
+public sealed record class HuffmanTreeNode
 {
-    public int Symbol { get; init; } = -1;
-    public int Weight { get; set; } = 0;
-    public HuffmanTreeNode? Left { get; set; } = null;
-    public HuffmanTreeNode? Right { get; set; } = null;
+    public byte Symbol { get; init; } = 0;
+    public long Weight { get; init; } = 0;
+    public HuffmanTreeNode? Left { get; init; } = null;
+    public HuffmanTreeNode? Right { get; init; } = null;
     public long CreationTime { get; }
 
     private static long counter = 0;
 
-    public HuffmanTreeNode(int symbol = -1, int weight = 0)
+    public HuffmanTreeNode(byte symbol = 0, long weight = 0)
     {
         Symbol = symbol;
         Weight = weight;
@@ -30,7 +30,21 @@ public record class HuffmanTreeNode
         Left = left;
         Right = right;
         Weight = left.Weight + right.Weight;
-        Symbol = -1;
+        Symbol = 0;
         CreationTime = counter++;
+    }
+
+    public bool IsLeaf() 
+    {
+        return Left == null;
+    }
+
+    public int CompareTo(HuffmanTreeNode other) 
+    {
+        if (this.Weight != other.Weight) return this.Weight.CompareTo(other.Weight);
+        if (this.IsLeaf() && other.IsLeaf()) return this.Symbol.CompareTo(other.Symbol);
+        if (this.IsLeaf() != other.IsLeaf()) return this.IsLeaf() ? -1 : 1;
+
+        return this.CreationTime.CompareTo(other.CreationTime);
     }
 }
