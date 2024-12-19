@@ -30,5 +30,9 @@ public class ApplicationErrorHandler
         {
             ErrorOutput.WriteLine("File Error");
         }
+        catch (Exception ex)
+        {
+            ErrorOutput.WriteLine(ex.Message);
+        }
     }
 }

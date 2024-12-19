@@ -16,10 +16,9 @@ public class HuffmanTreeProgram : IProgramCore
             state.OpenOutputFile(args[0]);
 
             var reader = new HuffmanTreeBinaryFileReader(state.InputReader!);
-            var writer = new HuffmanTreePrefixWriter(Console.Out);
-            // writer = new HuffmanTreeBinWriter(state.OutputWriter!);
+            var writer = new HuffmanTreeBinaryFileWriter(state.OutputWriter!);
 
-            BuildHuffmanTree(reader, writer);
+            EncodeTree(reader, writer);
         }
         finally 
         {
@@ -27,11 +26,13 @@ public class HuffmanTreeProgram : IProgramCore
         }
     }
 
-    public static void BuildHuffmanTree(IHuffmanTreeReader reader, IHuffmanTreeWriter writer)
+    public static void EncodeTree(IHuffmanTreeReader reader, IHuffmanTreeWriter writer)
     {
-        var symbolsDict = reader.GetSymbolsDict();
+        Dictionary<byte, long> symbolsDict = reader.GetSymbolsDict();
+        List<byte> data = reader.Data;
+
         HuffmanTreeNode root = HuffmanCoding(symbolsDict);
-        writer.WritePrefixTree(root);
+        writer.WriteFile(root, data);
     }
 
     static HuffmanTreeNode HuffmanCoding(Dictionary<byte, long> dict)

@@ -17,22 +17,22 @@ namespace Huffman1
             _writer = writer;
         }
 
-        public void WritePrefixTree(HuffmanTreeNode? root) 
+        public void WriteFile(HuffmanTreeNode? root, List<byte>? data = null) 
         {
             var buffer = new List<string>();
-            WritePrefixRec(root, buffer);
+            TraversePrefixOrder(root, buffer);
             _writer.Write(string.Join(" ", buffer));
         }
 
-        public void WritePrefixRec(HuffmanTreeNode? root, List<string> buffer) 
+        public void TraversePrefixOrder(HuffmanTreeNode? root, List<string> buffer) 
         {
             if (root == null) return;
 
             if (!root.IsLeaf())
             {
                 buffer.Add($"{root.Weight}");
-                WritePrefixRec(root.Left, buffer);
-                WritePrefixRec(root.Right, buffer);
+                TraversePrefixOrder(root.Left, buffer);
+                TraversePrefixOrder(root.Right, buffer);
             }
             else 
             {

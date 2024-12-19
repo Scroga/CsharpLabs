@@ -11,31 +11,42 @@ namespace Huffman1;
 public class HuffmanTreeBinaryFileReader : IHuffmanTreeReader
 {
     FileStream _reader;
-
+    public List<byte> Data { get; } = new List<byte>();
     public HuffmanTreeBinaryFileReader(FileStream reader)
     {
         _reader = reader;
+        Init();
+    }
+
+    void Init() 
+    {
+        const int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int bytesRead = 0;
+        while ((bytesRead = _reader.Read(buffer, 0, bufferSize)) > 0)
+        {
+            for (int i = 0; i < bytesRead; i++)
+            {
+                Data.Add(buffer[i]);
+            }
+        }
+        _reader.Dispose();
     }
 
     public Dictionary<byte,long> GetSymbolsDict()
     {
         var dict = new Dictionary<byte, long>();
-        const int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
 
-        int bytesRead = 0;
-        while((bytesRead = _reader.Read(buffer, 0, bufferSize)) > 0) 
+        foreach(var symbol in Data)
         {
-            for(int i = 0; i < bytesRead; i++) 
+            if (dict.ContainsKey(symbol))
             {
-                if (dict.ContainsKey(buffer[i]))
-                {
-                    dict[buffer[i]]++;
-                }
-                else
-                {
-                    dict.Add(buffer[i], 1);
-                }
+                dict[symbol]++;
+            }
+            else
+            {
+                dict.Add(symbol, 1);
             }
         }
         return dict;

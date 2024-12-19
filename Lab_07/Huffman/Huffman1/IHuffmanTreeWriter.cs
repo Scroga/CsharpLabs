@@ -8,5 +8,5 @@ namespace Huffman1;
 
 public interface IHuffmanTreeWriter
 {
-    void WritePrefixTree(HuffmanTreeNode root);
+    void WriteFile(HuffmanTreeNode root, List<byte>? data = null);
 }

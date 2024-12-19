@@ -10,7 +10,8 @@ namespace Huffman1
     public class ArgsToInputOutputState : IDisposable
     {
         public FileStream? InputReader { get; private set; } = null;
-        public TextWriter? OutputWriter { get; private set; } = null;
+        public FileStream? OutputWriter { get; private set; } = null;
+        const string OutputFileType = ".huff";
 
         public bool CheckArgumentCount(string[] args, int expectedArgCount) 
         {
@@ -35,11 +36,10 @@ namespace Huffman1
 
         public void OpenOutputFile(string inputFileName)
         {
-            string outputFileName = ""; // TODO:
-
+            string outputFileName = inputFileName + OutputFileType;
             try
             {
-                // TODO:
+                OutputWriter = new FileStream(outputFileName, FileMode.Create, FileAccess.Write);
             }
             catch
             {
