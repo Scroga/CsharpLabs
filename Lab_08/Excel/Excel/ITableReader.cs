@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Huffman1;
+namespace Excel;
 
-public interface IHuffmanTreeWriter
+public interface ITableReader
 {
-    void WriteFile(HuffmanTreeNode root, Span<byte> data);
+    public string[][] LoadTable(string fileName);
 }

@@ -10,35 +10,40 @@ namespace Huffman1;
 
 public class HuffmanTreeBinaryFileReader : IHuffmanTreeReader
 {
-    FileStream _reader;
-    public List<byte> Data { get; } = new List<byte>();
+    private FileStream _reader;
+    private Memory<byte> _data;
+
     public HuffmanTreeBinaryFileReader(FileStream reader)
     {
-        _reader = reader;
+        _reader = reader ?? throw new ArgumentNullException(nameof(reader));
         Init();
     }
 
-    void Init() 
+    public Span<byte> Data => _data.Span;
+
+    private void Init()
     {
         const int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
+        using var memoryStream = new MemoryStream();
 
-        int bytesRead = 0;
+        byte[] buffer = new byte[bufferSize];
+        int bytesRead;
+
         while ((bytesRead = _reader.Read(buffer, 0, bufferSize)) > 0)
         {
-            for (int i = 0; i < bytesRead; i++)
-            {
-                Data.Add(buffer[i]);
-            }
+            memoryStream.Write(buffer, 0, bytesRead);
         }
+
+        _data = new Memory<byte>(memoryStream.ToArray());
+
         _reader.Dispose();
     }
 
-    public Dictionary<byte,long> GetSymbolsDict()
+    public Dictionary<byte, long> GetSymbolsDict()
     {
         var dict = new Dictionary<byte, long>();
 
-        foreach(var symbol in Data)
+        foreach (var symbol in Data)
         {
             if (dict.ContainsKey(symbol))
             {
@@ -46,9 +51,10 @@ public class HuffmanTreeBinaryFileReader : IHuffmanTreeReader
             }
             else
             {
-                dict.Add(symbol, 1);
+                dict[symbol] = 1;
             }
         }
+
         return dict;
     }
 }

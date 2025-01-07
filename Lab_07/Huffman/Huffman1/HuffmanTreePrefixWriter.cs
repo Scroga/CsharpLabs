@@ -17,7 +17,7 @@ namespace Huffman1
             _writer = writer;
         }
 
-        public void WriteFile(HuffmanTreeNode? root, List<byte>? data = null) 
+        public void WriteFile(HuffmanTreeNode? root, Span<byte> data) 
         {
             var buffer = new List<string>();
             TraversePrefixOrder(root, buffer);

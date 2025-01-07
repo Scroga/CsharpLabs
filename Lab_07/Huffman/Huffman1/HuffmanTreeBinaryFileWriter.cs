@@ -35,7 +35,7 @@ public class HuffmanTreeBinaryFileWriter : IHuffmanTreeWriter
         }
     }
 
-    void WriteEncodedData(HuffmanTreeNode root, List<byte> data) 
+    void WriteEncodedData(HuffmanTreeNode root, Span<byte> data) 
     {
         foreach (byte b in DataEncoder.Encode(root!, data)) 
         {
@@ -43,7 +43,7 @@ public class HuffmanTreeBinaryFileWriter : IHuffmanTreeWriter
         }
     }
 
-    public void WriteFile(HuffmanTreeNode root, List<byte>? data = null) 
+    public void WriteFile(HuffmanTreeNode root, Span<byte> data) 
     {
         WriteHeader();
         WriteEncodedTree(root);

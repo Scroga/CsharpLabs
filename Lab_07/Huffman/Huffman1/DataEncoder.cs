@@ -31,41 +31,36 @@ public class DataEncoder
         return leafPaths;
     }
 
-    public static List<byte> Encode(HuffmanTreeNode root, List<byte> data)
+    public static List<byte> Encode(HuffmanTreeNode root, Span<byte> data)
     {
         var leafPaths = GetDataPaths(root);
-        var bitStream = new List<bool>();
+        var byteList = new List<byte>();
+        byte currentByte = 0;
+        int bitPosition = 0;
 
         foreach (var symbol in data)
         {
             var (path, length) = leafPaths[symbol];
             for (int i = length - 1; i >= 0; i--)
             {
-                bitStream.Add(((path >> i) & 1) == 1);
-            }
-        }
+                currentByte |= (byte)(((path >> i) & 1) << bitPosition);
+                bitPosition++;
 
-        var byteList = new List<byte>();
-        int bitCount = bitStream.Count;
-
-        while (bitStream.Count % 8 != 0)
-        {
-            bitStream.Add(false);
-        }
-
-        for (int i = 0; i < bitStream.Count; i += 8)
-        {
-            byte b = 0;
-            for (int j = 0; j < 8; j++)
-            {
-                if (bitStream[i + j])
+                if (bitPosition == 8)
                 {
-                    b |= (byte)(1 << j);
+                    byteList.Add(currentByte);
+                    currentByte = 0;
+                    bitPosition = 0;
                 }
             }
-            byteList.Add(b);
+        }
+
+        if (bitPosition > 0)
+        {
+            byteList.Add(currentByte);
         }
 
         return byteList;
     }
+
 }

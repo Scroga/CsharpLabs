@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Excel": {
+      "commandName": "Project",
+      "commandLineArgs": "Data/Cycle.sheet Data/Cycle.eval"
+    }
+  }
+}

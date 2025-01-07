@@ -8,6 +8,6 @@ namespace Huffman1;
 
 public interface IHuffmanTreeReader
 {
-    List<byte> Data { get; }
+    public Span<byte> Data { get; }
     Dictionary<byte, long> GetSymbolsDict();
 }

@@ -29,7 +29,7 @@ public class HuffmanTreeProgram : IProgramCore
     public static void EncodeTree(IHuffmanTreeReader reader, IHuffmanTreeWriter writer)
     {
         Dictionary<byte, long> symbolsDict = reader.GetSymbolsDict();
-        List<byte> data = reader.Data;
+        Span<byte> data = reader.Data;
 
         HuffmanTreeNode root = HuffmanCoding(symbolsDict);
         writer.WriteFile(root, data);
