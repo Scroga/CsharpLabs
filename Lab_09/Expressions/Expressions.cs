@@ -5,26 +5,19 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Expressions;
 
+#nullable enable
+
 public class Constant : IExpression
 {
-    Value _value;
+    int _value;
 
-    public Constant(int number)
+    public Constant(int value)
     {
-        _value = new Value(number);
-    }
-
-    public Constant(ValueType type) 
-    {
-        _value = new Value(type);
-    }
-
-    public Constant(Value value)
-    { 
         _value = value;
     }
 
-    public Value Evaluate()
+
+    public int Evaluate()
     {
         return _value;
     }
@@ -49,38 +42,32 @@ public class BinaryOperator : IExpression
         _operator = op;
     }
 
-    public Value Evaluate()
+    public int Evaluate()
     {
-        if (_left == null || _right == null)
-            return new Value(ValueType.FormatError);
+        if (_left == null || _right == null) 
+            throw new FormatErrorApplicationException();
 
-        Value left = _left!.Evaluate();
-        Value right = _right!.Evaluate();
+        int left = _left!.Evaluate();
+        int right = _right!.Evaluate();
 
-        try
+        switch (_operator)
         {
-            switch (_operator)
-            {
-                case '+':
-                    return left + right;
+            case '+':
+                return checked(left + right);
 
-                case '-':
-                    return left - right;
+            case '-':
+                return checked(left - right);
 
-                case '*':
-                    return left * right;
+            case '*':
+                return checked(left * right);
 
-                case '/':
-                    ;
-                    return left / right;
+            case '/':
+                if (right == 0)
+                    throw new DivisionErrorApplicationException();
+                return checked(left / right);
 
-                default:
-                    return new Value(ValueType.FormatError);
-            }
-        }
-        catch (OverflowException)
-        {
-            return new Value(ValueType.OverflowError);
+            default:
+                throw new FormatErrorApplicationException();
         }
     }
 }

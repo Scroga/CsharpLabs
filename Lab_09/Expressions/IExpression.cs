@@ -4,5 +4,5 @@ namespace Expressions;
 
 public interface IExpression
 {
-    public Value Evaluate();
+    public int Evaluate();
 }

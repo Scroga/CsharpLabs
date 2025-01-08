@@ -4,8 +4,15 @@ using System.Reflection.PortableExecutable;
 
 namespace Expressions;
 
+#nullable enable
+
 public class Calculator : IProgram
 {
+    const string DIVIDE_ERROR   = "Divide Error";
+    const string OVERFLOW_ERROR = "Overflow Error";
+    const string FORMAT_ERROR   = "Format Error";
+
+
     TextWriter _output;
     TextReader _input;
     public Calculator(TextWriter output, TextReader input) 
@@ -25,15 +32,22 @@ public class Calculator : IProgram
 
             string[] expression = line.Split(' ');
 
-            var result = parser.Parse(expression);
-
-            if (result != null)
+            try
             {
-                var value = result.Evaluate();
-                if (value != null)
-                {
-                    _output.WriteLine(value.GetAsString());
-                }
+                var result = parser.Parse(expression);
+                _output.WriteLine(result.Evaluate());
+            }
+            catch (DivisionErrorApplicationException)
+            {
+                _output.WriteLine(DIVIDE_ERROR);
+            }
+            catch (OverflowException)
+            {
+                _output.WriteLine(OVERFLOW_ERROR);
+            }
+            catch (FormatErrorApplicationException)
+            {
+                _output.Write(FORMAT_ERROR);
             }
         }
     }

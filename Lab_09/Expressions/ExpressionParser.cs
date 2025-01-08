@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace Expressions;
 
+#nullable enable
+
 public class ExpressionParser
 {
     Stack<IExpression>? _operands = new();
@@ -30,8 +32,7 @@ public class ExpressionParser
                 if (op == NEGATION && _operands!.Count > 0)
                 {
                     var operand = _operands.Pop();
-                    var minusOne = new Value(-1);
-                    _operands.Push(new Constant(operand.Evaluate() * minusOne));
+                    _operands.Push(new Constant(operand.Evaluate() * -1));
                     continue;
                 }
                 else if(_operands!.Count > 1)
@@ -50,19 +51,18 @@ public class ExpressionParser
                 continue;
             }
 
-            _operands!.Clear();
-            _operands!.Push(new Constant(ValueType.FormatError));
-            return;
+            throw new FormatErrorApplicationException();
         }
     }
 
     public IExpression Parse(string[] expression)
     {
-        if (_operands!.Count != 0) _operands!.Clear();
+        if (expression.Length < 3) throw new FormatErrorApplicationException();
 
         BuildExpressionTree(expression);
 
         if (_operands!.Count == 1) return _operands.Pop();
-        return new Constant(ValueType.FormatError);
+        _operands.Clear();
+        throw new FormatErrorApplicationException();
     }
 }
